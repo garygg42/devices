@@ -1,6 +1,7 @@
 package com.ig.devices.controller;
 
 import com.ig.devices.dto.DeviceCreateOrUpdateRequest;
+import com.ig.devices.dto.DevicesPageResponse;
 import com.ig.devices.dto.DeviceResponse;
 import com.ig.devices.dto.DeviceSearchParams;
 import com.ig.devices.service.DevicesService;
@@ -12,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -82,7 +82,7 @@ public class DevicesController {
     @Operation(summary = "Search for devices with optional filters and pagination",
             description = "Returns all devices if called without parameters")
     @GetMapping
-    public ResponseEntity<Page<DeviceResponse>> search(
+    public ResponseEntity<DevicesPageResponse> search(
             @ParameterObject @ModelAttribute DeviceSearchParams params,
             @ParameterObject @PageableDefault(size = Integer.MAX_VALUE) Pageable pageable) {
         return ResponseEntity.ok(service.search(params, pageable));
